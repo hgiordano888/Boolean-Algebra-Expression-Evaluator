@@ -61,28 +61,28 @@ class Parser {
 
         if token.lowercased() == "not" {
             //print("Parsing 'not'")
-            currentIndex += 1 // Consume "not"
+            currentIndex += 1 // use "not"
             if let node = try parseFactor() {
                 return Node.not(node)
             }
         } else if token.lowercased() == "true" {
             //print("Parsing 'true'")
-            currentIndex += 1 // Consume "true"
+            currentIndex += 1 // use "true"
             return Node.constant(true)
         } else if token.lowercased() == "false" {
             //print("Parsing 'false'")
-            currentIndex += 1 // Consume "false"
+            currentIndex += 1 // use "false"
             return Node.constant(false)
         } else if isVariable(token) {
             //print("Parsing Variable: \(token)")
-            currentIndex += 1 // Consume variable
+            currentIndex += 1 // use variable
             return Node.variable(token)
         } else if token == "(" {
             //print("Parsing Parentheses")
-            currentIndex += 1 // Consume "("
+            currentIndex += 1 // use "("
             if let node = try parseExpression() {
                 if getCurrentToken() == ")" {
-                    currentIndex += 1 // Consume ")"
+                    currentIndex += 1 // use ")"
                     return node
                 } else {
                     throw ParsingError.invalidExpression("Expected closing parenthesis.")
@@ -93,7 +93,7 @@ class Parser {
         throw ParsingError.invalidExpression("Unexpected token: \(token)")
     }
 
-    // Helper function to create binary nodes based on the operator
+    // function to create binary nodes based on the operator
     private func createBinaryNode(operatorSymbol: String, leftNode: Node?, rightNode: Node?) -> Node {
         //print("Creating Binary Node: \(operatorSymbol)")
         switch operatorSymbol {
@@ -114,7 +114,7 @@ class Parser {
         }
     }
 
-    // Helper functions for token inspection
+    // functions for token inspection
     private func getCurrentToken() -> String? {
         return currentIndex < tokens.count ? tokens[currentIndex] : nil
     }
